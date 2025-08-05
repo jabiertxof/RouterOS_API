@@ -4,7 +4,7 @@ import socket
 import ssl
 import hashlib
 import binascii
-
+from sys import stdout
 from . import _log
 
 # Constants - Define defaults
@@ -237,6 +237,7 @@ class Api:
             if received_sentence[0] != '!done':
                 if (type(sentence_to_send) == tuple and "listen" in sentence_to_send[0]):
                     print(self.format_reply([received_sentence,'!done']))
+                    stdout.flush()
                     continue
             paragraph.append(received_sentence)
         return paragraph
