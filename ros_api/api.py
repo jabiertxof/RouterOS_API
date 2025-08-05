@@ -236,10 +236,7 @@ class Api:
             received_sentence = read_sentence()
             if received_sentence[0] != '!done':
                 if (type(sentence_to_send) == tuple and "listen" in sentence_to_send[0]):
-                    _paragraph = []
-                    _paragraph.append(received_sentence)
-                    _paragraph.append('!done')
-                    print(self.format_reply(_paragraph))
+                    print(self.format_reply([received_sentence,'!done']))
                     continue
             paragraph.append(received_sentence)
         return paragraph
