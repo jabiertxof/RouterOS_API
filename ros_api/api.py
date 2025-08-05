@@ -234,6 +234,13 @@ class Api:
         received_sentence = ['']
         while received_sentence[0] != '!done':
             received_sentence = read_sentence()
+            if received_sentence[0] != '!done':
+                if (type(sentence_to_send) == tuple and "listen" in sentence_to_send[0]):
+                    _paragraph = []
+                    _paragraph.append(received_sentence)
+                    _paragraph.append('!done')
+                    print(self.format_reply(_paragraph))
+                    continue
             paragraph.append(received_sentence)
         return paragraph
 
@@ -257,6 +264,9 @@ class Api:
             sentence = sentence.split()
         reply = self.communicate(sentence)
 
+        return self.format_reply(reply)
+
+    def format_reply(self, reply):
         # If RouterOS returns error from command that was sent
         if '!trap' in reply[0][0]:
             # You can comment following line out if you don't want to raise an error in case of !trap
